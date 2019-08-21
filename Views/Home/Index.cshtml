@@ -1,0 +1,52 @@
+﻿@model LoginRegViewModel
+
+<div>
+    <h1 class="text-center">Wedding Planner</h1>
+    <div>
+        <form asp-action="Register" asp-controller="Home" method="post">
+            <h2 class="text-center">Register to plan a wedding!</h2>
+            <div class="form-group">
+                <span asp-validation-for="newUser.FirstName"></span><br>
+                <label asp-for="newUser.FirstName"></label>
+                <input class="form-control" asp-for="newUser.FirstName"><br>
+            </div>
+            <div class="form-group">
+                <span asp-validation-for="newUser.LastName"></span><br>
+                <label asp-for="newUser.LastName"></label>
+                <input class="form-control" asp-for="newUser.LastName"><br>
+            </div>
+            <div class="form-group">
+                <span asp-validation-for="newUser.Email"></span><br>
+                <label asp-for="newUser.Email"></label>
+                <input class="form-control" asp-for="newUser.Email"><br>
+            </div>
+            <div class="form-group">
+                <span asp-validation-for="newUser.Password"></span><br>
+                <label asp-for="newUser.Password"></label>
+                <input class="form-control" asp-for="newUser.Password"><br>
+            </div>
+            <div class="form-group">
+                <span asp-validation-for="newUser.PasswordConfirm"></span><br>
+                <label asp-for="newUser.PasswordConfirm"></label>
+                <input class="form-control" asp-for="newUser.PasswordConfirm"><br>
+            </div>
+            <button class="btn btn-primary">Register</button>
+        </form>
+    </div>
+    <div>
+        <form asp-action="Login" asp-controller="Home" method="post">
+            <h2 class="text-center">Login</h2>
+            <div class="form-group">
+                <span asp-validation-for="existingUser.Email"></span><br>
+                <label asp-for="existingUser.Email"></label>
+                <input class="form-control" asp-for="existingUser.Email"><br>
+            </div>
+            <div class="form-group">
+                <span asp-validation-for="existingUser.Password"></span><br>
+                <label asp-for="existingUser.Password"></label>
+                <input class="form-control" asp-for="existingUser.Password"><br>
+            </div>
+            <button class="btn btn-primary">Log In</button>
+        </form>
+    </div>
+</div>

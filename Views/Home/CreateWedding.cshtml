@@ -1,0 +1,38 @@
+@model DashboardViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <partial name="NavBarPartial" view-data="ViewData"/>
+    <form asp-action="AddWeddingToDB" asp-route-UserID=@Model.LoggedInUser.UserId asp-controller="Home" method="post">
+        <h2>Plan Your Wedding</h2>
+        <div class="form-group">
+            <span asp-validation-for="OneWedding.PersonOne"></span><br>
+            <label asp-for="OneWedding.PersonOne"></label>
+            <input class="form-control" asp-for="OneWedding.PersonOne"><br>
+        </div>
+        <div class="form-group">
+            <span asp-validation-for="OneWedding.PersonTwo"></span><br>
+            <label asp-for="OneWedding.PersonTwo"></label>
+            <input class="form-control" asp-for="OneWedding.PersonTwo"><br>
+        </div>
+        <div class="form-group">
+            <span asp-validation-for="OneWedding.WeddingDate"></span><br>
+            <label asp-for="OneWedding.WeddingDate"></label>
+            <input type="date" class="form-control" asp-for="OneWedding.WeddingDate"><br>
+        </div>
+        <div class="form-group">
+            <span asp-validation-for="OneWedding.WeddingAddress"></span><br>
+            <label asp-for="OneWedding.WeddingAddress"></label>
+            <input class="form-control" asp-for="OneWedding.WeddingAddress"><br>
+        </div>
+        <button class="btn btn-success">Create</button>
+    </form>
+</body>
+</html>

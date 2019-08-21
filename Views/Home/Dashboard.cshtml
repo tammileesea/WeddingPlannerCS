@@ -1,0 +1,71 @@
+@model DashboardViewModel
+@{
+    bool IsAttending(int userId, List<WeddingGuest> guests){
+        foreach (WeddingGuest wg in guests){
+            if (wg.AttendantId == userId) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Wedding Planner Dashboard</title>
+</head>
+<body>
+    <partial name="NavBarPartial" view-data="ViewData"/>
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Wedding For</th>
+                    <th scope="col">Date</th>
+                    <th scope="col"># of Guests</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(Wedding holyMat in Model.EveryWedding){
+                    <tr>
+                        <td scope="row"><a href="/@Model.LoggedInUser.UserId/weddingInfo/@holyMat.WeddingId">@holyMat.PersonOne & @holyMat.PersonTwo</a></td>
+                        <td>@holyMat.WeddingDate.ToString("dddd, MMMM dd, yyyy")</td>
+                        @if (@holyMat.Guests.Count == 0){
+                            <td>No guests yet</td>
+                        } else {
+                            <td>@holyMat.Guests.Count</td>
+                        }
+                        @if(@holyMat.CreatorId == @Model.LoggedInUser.UserId){
+                            <td>
+                                <form asp-action="RemoveWedding" asp-route-userID="@Model.LoggedInUser.UserId" asp-route-weddingID="@holyMat.WeddingId" method="post">
+                                    <button class="btn btn-danger">Delete</button>
+                                </form>
+                            </td>
+                        } else {
+                            @if(IsAttending(@Model.LoggedInUser.UserId, @holyMat.Guests)){
+                                <td>
+                                    <form asp-action="UnableAttendWedding" asp-route-userID="@Model.LoggedInUser.UserId" asp-route-weddingID="@holyMat.WeddingId" method="post">
+                                        <button class="btn btn-info">Unable to go</button>
+                                    </form>
+                                </td>
+                            } else {
+                                <td>
+                                    <form asp-action="RSVPWedding" asp-route-userID="@Model.LoggedInUser.UserId" asp-route-weddingID="@holyMat.WeddingId" method="post">
+                                        <button class="btn btn-info">RSVP</button>
+                                    </form>
+                                </td>
+                            }
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <a href="/@Model.LoggedInUser.UserId/createWedding" class="btn btn-success">Create a new wedding</a>
+</body>
+</html>

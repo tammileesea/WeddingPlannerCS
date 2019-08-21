@@ -1,0 +1,28 @@
+@model DashboardViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <partial name="NavBarPartial" view-data="ViewData"/>
+    <div>
+        <h1>@Model.OneWedding.PersonOne and @Model.OneWedding.PersonTwo's Wedding</h1>
+        <h3>@ViewBag.date</h3>
+        @if(@Model.OneWedding.Guests.Count > 0){
+            <h3>Attending Guests: </h3>
+            <ul>
+                @foreach(WeddingGuest guest in @Model.OneWedding.Guests){
+                    <li>@guest.Attendant.FirstName @guest.Attendant.LastName</li>
+                }
+            </ul>
+        } else {
+            <h3>No guests yet</h3>
+        }
+    </div>
+</body>
+</html>
